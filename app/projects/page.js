@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export const metadata = {
   title: 'Projects — dev.lab',
 }
@@ -24,6 +26,7 @@ const projects = [
     status: 'Active',
     type: 'FinTech',
     entry: '002',
+    href: '/projects/trading-bot',
   },
   {
     id: 3,
@@ -55,8 +58,10 @@ function StatusBadge({ status }) {
 }
 
 function ProjectCard({ project }) {
+  const Tag = project.href ? Link : 'div'
   return (
-    <div
+    <Tag
+      href={project.href}
       className={`flex flex-col p-6 border rounded-lg transition-all duration-200 group ${
         project.placeholder
           ? 'border-zinc-800 border-dashed bg-transparent'
@@ -101,7 +106,7 @@ function ProjectCard({ project }) {
           </span>
         ))}
       </div>
-    </div>
+    </Tag>
   )
 }
 
