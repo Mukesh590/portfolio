@@ -15,6 +15,8 @@ const projects = [
     status: 'Active',
     type: 'AI / Simulation',
     entry: '001',
+    href: 'https://traffic-sim-phi.vercel.app',
+    external: true,
   },
   {
     id: 2,
@@ -62,6 +64,7 @@ function ProjectCard({ project }) {
   return (
     <Tag
       href={project.href}
+      {...(project.external && { target: '_blank', rel: 'noopener noreferrer' })}
       className={`flex flex-col p-6 border rounded-lg transition-all duration-200 group ${
         project.placeholder
           ? 'border-zinc-800 border-dashed bg-transparent'
