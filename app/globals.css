@@ -1,55 +1,117 @@
 @import "tailwindcss";
 
 :root {
-  --background: #050505;
-  --foreground: #f1f5f9;
-  --accent: #00d9ff;
+  --background: #04060a;
+  --surface: #0a0e14;
+  --foreground: #e6edf3;
+  --accent: #22e0ff;        /* cyan - brand */
+  --signal: #34ffb0;        /* green - live / profit / online */
+  --grid-line: rgba(34, 224, 255, 0.05);
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
-  --color-accent-2: #a855f7;
+  --color-signal: var(--signal);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
 }
 
+/* selection */
+::selection {
+  background: rgba(34, 224, 255, 0.25);
+  color: #fff;
+}
+
+/* thin scrollbar */
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: var(--background); }
+::-webkit-scrollbar-thumb {
+  background: #1c2430;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover { background: #2a3543; }
+
+/* ---- backgrounds ---- */
 .grid-bg {
   background-image:
-    linear-gradient(rgba(0, 217, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 217, 255, 0.04) 1px, transparent 1px);
-  background-size: 40px 40px;
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 44px 44px;
+  background-position: center;
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 30%, transparent 100%);
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 30%, transparent 100%);
 }
 
-@keyframes cursor-blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+/* fine scanline overlay for the mission-control feel */
+.scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.018) 0px,
+    rgba(255, 255, 255, 0.018) 1px,
+    transparent 1px,
+    transparent 3px
+  );
 }
 
-.cursor-blink {
-  animation: cursor-blink 1s step-end infinite;
+/* gradient hairline divider */
+.rule-accent {
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), transparent);
 }
 
-@keyframes glow-pulse {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.8; }
+/* text glow used sparingly on key headers */
+.glow-accent {
+  text-shadow: 0 0 24px rgba(34, 224, 255, 0.35);
 }
 
-.glow-pulse {
-  animation: glow-pulse 4s ease-in-out infinite;
+/* ---- reveal (GSAP target hidden state, with no-JS / reduced-motion fallback) ---- */
+.reveal { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-armed > * { opacity: 0; }
 }
 
-@keyframes scroll-bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(6px); }
-}
+/* ---- keyframes ---- */
+@keyframes cursor-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+.cursor-blink { animation: cursor-blink 1.05s step-end infinite; }
 
-.scroll-bounce {
-  animation: scroll-bounce 1.6s ease-in-out infinite;
+@keyframes glow-pulse { 0%, 100% { opacity: 0.35; } 50% { opacity: 0.75; } }
+.glow-pulse { animation: glow-pulse 5s ease-in-out infinite; }
+
+@keyframes scroll-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(7px); } }
+.scroll-bounce { animation: scroll-bounce 1.7s ease-in-out infinite; }
+
+@keyframes sweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.sweep { animation: sweep 2.6s ease-in-out infinite; }
+
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.ticker-track { animation: ticker 32s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .cursor-blink,
+  .glow-pulse,
+  .scroll-bounce,
+  .sweep,
+  .ticker-track { animation: none !important; }
+  .reveal-armed > * { opacity: 1 !important; transform: none !important; }
 }

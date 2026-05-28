@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import PnLChart from './PnLChart'
+import Reveal from '../../components/Reveal'
 
 export const metadata = {
-  title: 'Algorithmic Trading Bot — dev.lab',
+  title: 'Algorithmic Trading Bot',
 }
 
 const metrics = [
@@ -37,7 +38,7 @@ const strategyItems = [
   {
     tag: 'MGMT',
     title: 'Position Management',
-    desc: 'Maximum 3 concurrent positions across MSFT, AAPL, AMZN, and META. Close positions at 50–70% of max profit — a proven theta-decay harvest point that avoids holding through gamma risk near expiry.',
+    desc: 'Maximum 3 concurrent positions across MSFT, AAPL, AMZN, and META. Close positions at 50-70% of max profit, a proven theta-decay harvest point that avoids holding through gamma risk near expiry.',
     color: 'border-zinc-700/60 bg-zinc-800/30',
     tagColor: 'text-zinc-400 border-zinc-700',
   },
@@ -49,7 +50,7 @@ export default function TradingBotPage() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
 
         {/* Hero */}
-        <div className="mb-14 relative">
+        <Reveal className="mb-14 relative" as="div">
           <div className="absolute -top-8 -left-6 w-72 h-72 bg-accent/4 rounded-full blur-3xl pointer-events-none" />
           <p className="text-accent font-mono text-sm mb-2 relative">// projects / trading-bot</p>
           <h1 className="text-4xl sm:text-5xl font-bold text-zinc-100 mb-5 relative">
@@ -72,7 +73,7 @@ export default function TradingBotPage() {
               </span>
             ))}
           </div>
-        </div>
+        </Reveal>
 
         {/* Metrics */}
         <section className="mb-14">
@@ -96,7 +97,7 @@ export default function TradingBotPage() {
           <p className="text-accent font-mono text-xs mb-5 tracking-widest uppercase">// pnl_chart</p>
           <div className="border border-zinc-800 rounded-lg bg-zinc-900/40 p-6">
             <div className="flex items-center justify-between mb-4">
-              <span className="text-zinc-400 font-mono text-sm">Cumulative P&amp;L — 2025</span>
+              <span className="text-zinc-400 font-mono text-sm">Cumulative P&amp;L · 2025</span>
               <span className="text-zinc-700 font-mono text-xs">placeholder data</span>
             </div>
             <PnLChart />
@@ -142,13 +143,18 @@ export default function TradingBotPage() {
               </svg>
               View Bot Code on GitHub
             </a>
-            <span className="inline-flex items-center gap-2 px-5 py-2.5 border border-zinc-800 text-zinc-600 font-mono text-sm rounded cursor-not-allowed select-none">
+            <a
+              href="https://trading-dashboard-theta-lac.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 border border-zinc-700 text-zinc-200 font-mono text-sm rounded hover:border-signal hover:text-signal transition-all duration-200"
+            >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="12" cy="12" r="10" />
                 <path d="M12 8v4l3 3" />
               </svg>
-              Live Demo — coming soon
-            </span>
+              Open Live Dashboard ↗
+            </a>
           </div>
         </section>
 

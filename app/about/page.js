@@ -1,94 +1,143 @@
+import Link from 'next/link'
+import Reveal from '../components/Reveal'
+import TerminalBoot from '../components/TerminalBoot'
+
 export const metadata = {
-  title: 'About — dev.lab',
+  title: 'About',
 }
 
-const skills = [
-  { name: 'Python', level: 'Advanced', category: 'Lang' },
-  { name: 'JavaScript', level: 'Advanced', category: 'Lang' },
-  { name: 'Next.js', level: 'Intermediate', category: 'Framework' },
-  { name: 'AI / ML', level: 'Intermediate', category: 'Domain' },
-  { name: 'Data Structures', level: 'Intermediate', category: 'CS' },
-  { name: 'Optimization', level: 'Learning', category: 'Domain' },
+const bioLines = [
+  { type: 'cmd', text: 'whoami' },
+  { type: 'out', text: 'Mukesh Sendhilkumar, high school student and systems builder.' },
+  { type: 'cmd', text: 'cat focus.txt' },
+  { type: 'out', text: 'I build software that models, predicts, and optimizes real-world systems:' },
+  { type: 'out', text: 'AI agents, trading strategies, and the math that makes them work.' },
+  { type: 'cmd', text: 'cat now.txt' },
+  { type: 'out', text: 'Currently deep in reinforcement learning, quant trading, and systems design.' },
+  { type: 'ok', text: 'every project teaches something a classroom never could.' },
 ]
 
-const interests = [
-  { title: 'Reinforcement Learning', desc: 'Training agents to make optimal decisions in dynamic environments.' },
-  { title: 'Algorithmic Trading', desc: 'Applying quantitative analysis and automation to financial markets.' },
-  { title: 'Systems Design', desc: 'Understanding how large-scale systems are architected and optimized.' },
+const stack = [
+  { name: 'Python', slug: 'python', level: 'Advanced' },
+  { name: 'JavaScript', slug: 'javascript', level: 'Advanced' },
+  { name: 'React', slug: 'react', level: 'Intermediate' },
+  { name: 'Next.js', slug: 'nextdotjs', level: 'Intermediate' },
+  { name: 'NumPy', slug: 'numpy', level: 'Intermediate' },
+  { name: 'Pandas', slug: 'pandas', level: 'Intermediate' },
+  { name: 'PyTorch', slug: 'pytorch', level: 'Learning' },
+  { name: 'Tailwind', slug: 'tailwindcss', level: 'Advanced' },
+  { name: 'Git', slug: 'git', level: 'Intermediate' },
+  { name: 'Linux', slug: 'linux', level: 'Intermediate' },
+]
+
+const building = [
+  {
+    title: 'Traffic Optimization AI',
+    state: 'live',
+    desc: 'Tuning the reward function so the RL controller generalizes across grid layouts.',
+  },
+  {
+    title: 'Algorithmic Trading Bot',
+    state: 'live',
+    desc: 'Hardening the backtester and risk manager before letting it run on paper money.',
+  },
+  {
+    title: 'Project [CLASSIFIED]',
+    state: 'planning',
+    desc: 'Next build in the optimization space. Details once the first prototype runs.',
+  },
 ]
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen pt-24 pb-20">
+    <main className="min-h-screen pt-28 pb-24">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
-        {/* Header */}
-        <div className="mb-12">
+        {/* header */}
+        <Reveal className="mb-12">
           <p className="text-accent font-mono text-sm mb-2">// about_me.md</p>
-          <h1 className="text-4xl sm:text-5xl font-bold text-zinc-100 mb-4">About</h1>
-          <div className="h-px w-full" style={{ background: 'linear-gradient(90deg, var(--accent), transparent)' }} />
+          <h1 className="text-4xl sm:text-5xl font-bold text-zinc-100 tracking-tight mb-4">About</h1>
+          <div className="rule-accent w-full" />
+        </Reveal>
+
+        {/* terminal bio */}
+        <div className="mb-16">
+          <TerminalBoot lines={bioLines} />
         </div>
 
-        {/* Bio */}
-        <div className="mb-14 p-6 border border-zinc-800 rounded-lg bg-zinc-900/40 relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-1 h-full bg-accent rounded-l-lg" />
-          <div className="pl-2">
-            <p className="text-zinc-400 text-base leading-relaxed mb-4">
-              I&apos;m a high school student with a deep interest in how software can model, predict, and
-              optimize real-world systems. Whether it&apos;s simulating traffic flows or building trading
-              algorithms, I&apos;m drawn to problems where math meets code.
-            </p>
-            <p className="text-zinc-400 text-base leading-relaxed">
-              Right now, I&apos;m focused on AI/ML fundamentals, building personal projects, and developing
-              the skills to work at the intersection of engineering and intelligent systems. Every project
-              is a chance to learn something that can&apos;t be taught in a classroom.
-            </p>
-          </div>
-        </div>
-
-        {/* Skills */}
-        <div className="mb-14">
-          <p className="text-accent font-mono text-sm mb-2">// skills[]</p>
-          <h2 className="text-2xl font-bold text-zinc-100 mb-6">Skills</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            {skills.map((skill) => (
+        {/* tech stack */}
+        <div className="mb-16">
+          <Reveal className="mb-7">
+            <p className="text-accent font-mono text-xs tracking-[0.2em] uppercase mb-2">// stack[]</p>
+            <h2 className="text-2xl font-bold text-zinc-100 tracking-tight">Tech Stack</h2>
+          </Reveal>
+          <Reveal className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3" stagger={0.05}>
+            {stack.map((t) => (
               <div
-                key={skill.name}
-                className="p-4 border border-zinc-800 rounded-lg bg-zinc-900/40 hover:border-accent/40 hover:bg-accent/5 transition-all duration-200 group"
+                key={t.name}
+                className="flex flex-col items-center gap-3 p-5 rounded-xl border border-zinc-800 bg-surface/50 hover:border-accent/40 hover:bg-accent/[0.03] transition-all duration-200 group"
               >
-                <div className="flex items-start justify-between mb-2">
-                  <span className="text-zinc-100 font-mono text-sm font-semibold group-hover:text-accent transition-colors duration-200">
-                    {skill.name}
-                  </span>
-                  <span className="text-zinc-700 text-xs font-mono px-1.5 py-0.5 border border-zinc-800 rounded shrink-0 ml-1">
-                    {skill.category}
-                  </span>
+                <img
+                  src={`https://cdn.simpleicons.org/${t.slug}/e6edf3`}
+                  alt={t.name}
+                  width={28}
+                  height={28}
+                  loading="lazy"
+                  className="opacity-80 group-hover:opacity-100 transition-opacity"
+                />
+                <div className="text-center">
+                  <p className="font-mono text-sm text-zinc-200">{t.name}</p>
+                  <p className="font-mono text-[10px] text-zinc-600 mt-0.5">{t.level}</p>
                 </div>
-                <span className="text-zinc-600 text-xs font-mono">{skill.level}</span>
               </div>
             ))}
-          </div>
+          </Reveal>
         </div>
 
-        {/* Interests */}
+        {/* currently building */}
         <div>
-          <p className="text-accent font-mono text-sm mb-2">// interests[]</p>
-          <h2 className="text-2xl font-bold text-zinc-100 mb-6">Interests</h2>
-          <div className="space-y-3">
-            {interests.map((item, i) => (
+          <Reveal className="mb-7">
+            <p className="text-accent font-mono text-xs tracking-[0.2em] uppercase mb-2">// currently_building</p>
+            <h2 className="text-2xl font-bold text-zinc-100 tracking-tight">Currently Building</h2>
+          </Reveal>
+          <Reveal className="space-y-3" stagger={0.1}>
+            {building.map((b) => (
               <div
-                key={item.title}
-                className="flex gap-4 p-5 border border-zinc-800 rounded-lg bg-zinc-900/40 hover:border-zinc-700 transition-all duration-200"
+                key={b.title}
+                className="flex items-start gap-4 p-5 rounded-xl border border-zinc-800 bg-surface/40 hover:border-zinc-700 transition-colors"
               >
-                <span className="text-zinc-700 font-mono text-sm mt-0.5 shrink-0">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <div>
-                  <h3 className="text-zinc-100 font-semibold mb-1">{item.title}</h3>
-                  <p className="text-zinc-500 text-sm leading-relaxed">{item.desc}</p>
+                <span
+                  className={`mt-1.5 h-2 w-2 rounded-full shrink-0 ${
+                    b.state === 'live' ? 'bg-signal' : 'bg-zinc-600'
+                  }`}
+                />
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-2 mb-1">
+                    <h3 className="font-semibold text-zinc-100">{b.title}</h3>
+                    <span
+                      className={`font-mono text-[10px] uppercase tracking-wider rounded px-1.5 py-0.5 border ${
+                        b.state === 'live'
+                          ? 'text-signal border-signal/30'
+                          : 'text-zinc-500 border-zinc-700'
+                      }`}
+                    >
+                      {b.state}
+                    </span>
+                  </div>
+                  <p className="text-zinc-500 text-sm leading-relaxed">{b.desc}</p>
                 </div>
               </div>
             ))}
-          </div>
+          </Reveal>
+
+          <Reveal className="mt-10">
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-2 font-mono text-sm text-zinc-300 hover:text-accent transition-colors group"
+            >
+              see the projects
+              <span className="group-hover:translate-x-1 transition-transform">→</span>
+            </Link>
+          </Reveal>
         </div>
       </div>
     </main>
